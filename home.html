@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phishing Detector - Home</title>
+
+<style>
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-green: #00e676;
+    --neon-red: #ff5252;
+    --neon-orange: #ffab00;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: white;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar h2 {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.navbar span {
+    color: var(--neon-green);
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 25px;
+    transition: 0.3s;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--neon-green);
+}
+
+/* HERO SECTION */
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #cfd8dc;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+.hero button {
+    margin-top: 25px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    background: var(--neon-green);
+    color: #003300;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero button:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <h2>🔐 Phishing<span>Detector</span></h2>
+
+    <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">About</a>
+        <a href="help.html">Help</a>
+    </div>
+</div>
+
+<div class="hero">
+    <h1>Welcome to Phishing Detector</h1>
+
+    <p>
+        Protect yourself from phishing attacks with intelligent URL and
+        email scanning. Detect suspicious links, analyze threats,
+        and stay secure online.
+    </p>
+
+    <button onclick="window.location.href='dashboard.html'">
+        Launch Dashboard
+    </button>
+</div>
+
+</body>
+</html>

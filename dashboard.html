@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phishing Detection Dashboard</title>
+
+<style>
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    --glass:        rgba(255,255,255,0.05);
+    --glass-border: rgba(255,255,255,0.1);
+    --neon-green:   #00e676;
+    --neon-red:     #ff5252;
+    --neon-orange:  #ffab00;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: white;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar h2 {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.navbar span {
+    color: var(--neon-green);
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 25px;
+    transition: 0.3s;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--neon-green);
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* INPUT */
+.input-section {
+    margin-bottom: 40px;
+}
+
+.input-box {
+    background: var(--glass);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(5px);
+}
+
+h3 {
+    margin-top: 0;
+    color: #80deea;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: white;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-url {
+    background: var(--neon-green);
+    color: #003300;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--glass);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+}
+
+pre {
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #a5d6a7;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+/* GAUGE */
+.gauge-container {
+    width: 180px;
+    margin: 10px auto;
+}
+
+.gauge-bg {
+    fill: none;
+    stroke: rgba(255,255,255,0.1);
+    stroke-width: 8;
+    stroke-linecap: round;
+}
+
+.needle {
+    fill: var(--neon-green);
+    transition: transform 0.8s cubic-bezier(.34,1.56,.64,1);
+    transform-origin: 50px 45px;
+}
+
+.labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    margin-top: 5px;
+    opacity: 0.7;
+}
+
+#ml_res {
+    text-align: center;
+    font-size: 28px;
+    margin: 20px 0;
+    font-weight: bold;
+    transition: color 0.5s;
+}
+
+#status {
+    color: #80deea;
+    font-style: italic;
+}
+
+#tips li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.error-box {
+    background: rgba(255,82,82,0.15);
+    border: 1px solid rgba(255,82,82,0.4);
+    color: #ffb3b3;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <h2>🔐 Phishing<span>Detector</span></h2>
+
+    <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="about.html">About</a>
+        <a href="help.html">Help</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- URL INPUT -->
+    <div class="input-section">
+
+        <div class="input-box">
+
+            <h3>🌐 URL Detection</h3>
+
+            <input
+                id="url"
+                type="text"
+                autocomplete="off"
+                placeholder="Enter URL to scan..."
+            >
+
+            <button
+                type="button"
+                id="urlBtn"
+                class="btn-url"
+            >
+                Analyze URL
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- STATUS -->
+    <center>
+
+        <span id="status">System Ready</span>
+
+        <div id="ml_res">PENDING</div>
+
+        <div id="errorBox" class="error-box"></div>
+
+    </center>
+
+    <!-- RESULTS -->
+    <div class="grid">
+
+        <!-- URL FEATURES -->
+        <div class="card">
+
+            <h3>📊 URL Features</h3>
+
+            <pre id="url_res">---</pre>
+
+        </div>
+
+        <!-- WHOIS -->
+        <div class="card">
+
+            <h3>🔍 WHOIS Details</h3>
+
+            <pre id="whois_res">---</pre>
+
+        </div>
+
+        <!-- DNS + SSL -->
+        <div class="card">
+
+            <h3>🌍 DNS & SSL</h3>
+
+            <pre id="dns_res">---</pre>
+
+        </div>
+
+        <!-- RISK -->
+        <div class="card" style="text-align:center;">
+
+            <h3>⚠️ Risk Assessment</h3>
+
+            <div class="gauge-container">
+
+                <svg viewBox="0 0 100 50">
+
+                    <path
+                        class="gauge-bg"
+                        d="M10 45 A 40 40 0 0 1 90 45"
+                    />
+
+                    <polygon
+                        id="needle"
+                        class="needle"
+                        points="50,45 48,10 52,10"
+                        transform="rotate(-90,50,45)"
+                    />
+
+                </svg>
+
+                <div class="labels">
+                    <span>SAFE</span>
+                    <span>SUSPICIOUS</span>
+                    <span>DANGER</span>
+                </div>
+
+            </div>
+
+            <h2
+                id="risk"
+                style="margin-top:10px; font-size:32px;"
+            >
+                0%
+            </h2>
+
+        </div>
+
+        <!-- EXPLANATION -->
+        <div class="card">
+
+            <h3>🧠 Explanation</h3>
+
+            <pre id="explain">---</pre>
+
+        </div>
+
+        <!-- SAFETY TIPS -->
+        <div class="card">
+
+            <h3>🛡️ Safety Tips</h3>
+
+            <ul id="tips"></ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+const API = "http://127.0.0.1:5000";
+
+
+// =====================================
+// WARN BEFORE LEAVING PAGE
+// =====================================
+window.addEventListener("beforeunload", function(e) {
+
+    if (document.getElementById("url").value) {
+
+        e.preventDefault();
+        e.returnValue = "";
+
+    }
+
+});
+
+
+// =====================================
+// ENTER KEY SUPPORT
+// =====================================
+document.getElementById("url")
+    .addEventListener("keydown", function(e) {
+
+        if (e.key === "Enter") {
+
+            e.preventDefault();
+            analyzeURL();
+
+        }
+
+    });
+
+
+// =====================================
+// BUTTON EVENT
+// =====================================
+document.getElementById("urlBtn")
+    .addEventListener("click", analyzeURL);
+
+
+// =====================================
+// ERROR HELPERS
+// =====================================
+function showError(message) {
+
+    const box = document.getElementById("errorBox");
+
+    box.style.display = "block";
+
+    box.innerText = "❌ " + message;
+
+}
+
+function clearError() {
+
+    const box = document.getElementById("errorBox");
+
+    box.style.display = "none";
+
+    box.innerText = "";
+
+}
+
+
+// =====================================
+// UPDATE DASHBOARD
+// =====================================
+function updateDashboard(data) {
+
+    clearError();
+
+    const risk = data.risk_score ?? 0;
+
+    const result = data.ml_result || "UNKNOWN";
+
+    // Result
+    const resEl = document.getElementById("ml_res");
+
+    resEl.innerText = result.toUpperCase();
+
+    // Gauge
+    const rotation = (risk * 1.8) - 90;
+
+    document.getElementById("needle")
+        .setAttribute(
+            "transform",
+            `rotate(${rotation},50,45)`
+        );
+
+    document.getElementById("risk").innerText = risk + "%";
+
+    // Colors
+    let color = "var(--neon-green)";
+
+    if (risk >= 40 && risk < 75) {
+        color = "var(--neon-orange)";
+    }
+
+    if (risk >= 75) {
+        color = "var(--neon-red)";
+    }
+
+    resEl.style.color = color;
+
+    document.getElementById("risk").style.color = color;
+
+    document.getElementById("needle").style.fill = color;
+
+    // Panels
+    document.getElementById("url_res").innerText =
+        JSON.stringify(
+            data.url_features || {},
+            null,
+            2
+        );
+
+    document.getElementById("whois_res").innerText =
+        JSON.stringify(
+            data.whois_features || {},
+            null,
+            2
+        );
+
+    document.getElementById("dns_res").innerText =
+        "DNS:\n" +
+        JSON.stringify(data.dns_features || {}, null, 2) +
+        "\n\nSSL:\n" +
+        JSON.stringify(data.ssl_features || {}, null, 2);
+
+    // Explanation
+    document.getElementById("explain").innerText =
+        data.explanation || "Detection complete.";
+
+    // Tips
+    const tipsList = document.getElementById("tips");
+
+    tipsList.innerHTML = "";
+
+    let tips = [];
+
+    if (risk >= 75) {
+
+        tips = [
+            "🚨 High-risk phishing detected",
+            "❌ Do not enter passwords",
+            "⚠️ Avoid clicking links",
+            "🔒 Close the website immediately"
+        ];
+
+    }
+    else if (risk >= 40) {
+
+        tips = [
+            "⚠️ Suspicious website detected",
+            "🔍 Verify links carefully",
+            "🛡️ Avoid downloads"
+        ];
+
+    }
+    else {
+
+        tips = [
+            "✅ Website appears safe",
+            "🔒 Always verify URLs",
+            "🛡️ Keep browser updated"
+        ];
+
+    }
+
+    tips.forEach(tip => {
+
+        const li = document.createElement("li");
+
+        li.innerText = tip;
+
+        tipsList.appendChild(li);
+
+    });
+
+}
+
+
+// =====================================
+// URL ANALYSIS
+// =====================================
+async function analyzeURL() {
+
+    clearError();
+
+    const url = document.getElementById("url")
+        .value
+        .trim();
+
+    if (!url) {
+
+        showError("Please enter a URL");
+
+        return;
+
+    }
+
+    const btn = document.getElementById("urlBtn");
+
+    btn.disabled = true;
+
+    btn.innerText = "Scanning...";
+
+    document.getElementById("status").innerText =
+        "🛡️ Scanning URL...";
+
+    try {
+
+        const response = await fetch(
+            `${API}/analyze`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({ url })
+            }
+        );
+
+        if (!response.ok) {
+
+            const err = await response
+                .json()
+                .catch(() => ({}));
+
+            throw new Error(
+                err.error ||
+                `Server error ${response.status}`
+            );
+
+        }
+
+        const data = await response.json();
+
+        updateDashboard(data);
+
+        document.getElementById("status").innerText =
+            "✅ URL Scan Complete";
+
+    }
+    catch (err) {
+
+        console.error(err);
+
+        showError(
+            err.message ||
+            "Backend connection failed"
+        );
+
+        document.getElementById("status").innerText =
+            "❌ Backend Error";
+
+    }
+    finally {
+
+        btn.disabled = false;
+
+        btn.innerText = "Analyze URL";
+
+    }
+
+}
+</script>
+
+</body>
+</html>

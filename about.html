@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - Phishing Detector</title>
+
+<style>
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-green: #00e676;
+    --neon-red: #ff5252;
+    --neon-orange: #ffab00;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: white;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar h2 {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.navbar span {
+    color: var(--neon-green);
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 25px;
+    transition: 0.3s;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--neon-green);
+}
+
+/* CONTENT */
+.container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 40px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    color: #80deea;
+    text-align: center;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #e0f7fa;
+    margin-bottom: 20px;
+}
+
+/* FEATURE BOXES */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--neon-green);
+}
+
+.feature-card h3 {
+    margin-top: 0;
+    color: var(--neon-green);
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <h2>🔐 Phishing<span>Detector</span></h2>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html" class="active">About</a>
+        <a href="help.html">Help</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h1>About This Project</h1>
+
+    <p>
+        This phishing detection system analyzes URLs and email content
+        using machine learning concepts and rule-based techniques.
+    </p>
+
+    <p>
+        It checks multiple factors such as URL structure, SSL security,
+        suspicious keywords, and links to determine whether a website
+        or email is safe or phishing.
+    </p>
+
+    <p>
+        The goal of this project is to improve user awareness and help
+        prevent cyber attacks through intelligent threat detection.
+    </p>
+
+    <div class="features">
+
+        <div class="feature-card">
+            <h3>🌐 URL Analysis</h3>
+            <p>
+                Detects suspicious domains, fake login pages,
+                and malicious URL patterns.
+            </p>
+        </div>
+
+        
+        <div class="feature-card">
+            <h3>🛡️ Security Checks</h3>
+            <p>
+                Verifies SSL certificates, WHOIS data,
+                and DNS records for added protection.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

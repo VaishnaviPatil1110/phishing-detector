@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help - Phishing Detector</title>
+
+<style>
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-green: #00e676;
+    --neon-red: #ff5252;
+    --neon-orange: #ffab00;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: white;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar h2 {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.navbar span {
+    color: var(--neon-green);
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 25px;
+    transition: 0.3s;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--neon-green);
+}
+
+/* CONTENT */
+.container {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 40px;
+    color: #80deea;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* CARD */
+.card {
+    background: var(--glass);
+    padding: 25px;
+    border-radius: 18px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    text-align: left;
+    transition: 0.3s;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--neon-green);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: var(--neon-green);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card p,
+.card li {
+    color: #e0f7fa;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>🔐 Phishing<span>Detector</span></h2>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">About</a>
+        <a href="help.html" class="active">Help</a>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+<h1>Help & User Guide</h1>
+
+<div class="grid">
+
+    <!-- HOW TO USE -->
+    <div class="card">
+        <h3>🔍 How to Use</h3>
+        <ul>
+            <li>Go to Dashboard</li>
+            <li>Enter a URL</li>
+            <li>Click "Analyze URL"</li>
+            
+            <li>Review the risk score</li>
+        </ul>
+    </div>
+
+    <!-- SAFETY TIPS -->
+    <div class="card">
+        <h3>🛡️ Safety Tips</h3>
+        <ul>
+            <li>Do not click unknown links</li>
+            <li>Never share passwords</li>
+            <li>Always verify HTTPS security</li>
+            <li>Beware of urgent requests</li>
+        </ul>
+    </div>
+
+    <!-- UNDERSTANDING RESULTS -->
+    <div class="card">
+        <h3>⚠️ Understanding Results</h3>
+        <ul>
+            <li><b>Phishing:</b> Dangerous or fake</li>
+            <li><b>Safe:</b> Appears legitimate</li>
+            <li><b>Risk Score:</b> Higher means more dangerous</li>
+        </ul>
+    </div>
+
+    <!-- URL DETECTION -->
+    <div class="card">
+        <h3>🌐 URL Detection</h3>
+        <p>
+            The system checks URL structure, SSL certificates,
+            DNS information, and WHOIS records to identify
+            suspicious websites.
+        </p>
+    </div>
+
+
+
+    <!-- TROUBLESHOOTING -->
+    <div class="card">
+        <h3>🔧 Troubleshooting</h3>
+        <ul>
+            <li>Ensure backend server is running</li>
+            <li>Verify API is active on port 5000</li>
+            <li>Check internet connection</li>
+            <li>Refresh the page if errors occur</li>
+        </ul>
+    </div>
+
+</div>
+
+</div>
+
+</body>
+</html>
